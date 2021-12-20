@@ -41,7 +41,6 @@
 }
 
 .buttons {
-  padding: 1rem;
   display: flex;
   justify-content: center;
 }
@@ -49,6 +48,7 @@
 .buttons button {
   margin-right: 1rem;
   margin-left: 1rem;
+  padding-bottom: 0.2em;
   background-color:rgb(176, 247, 223);
   border-radius: 10px;
   height: 30px;
@@ -82,3 +82,4 @@
   color: red;
   font-weight:bolder;
 }
+
