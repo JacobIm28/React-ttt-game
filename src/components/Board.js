@@ -42,22 +42,30 @@ export function Board() {
     return false;
   };
 
+  const boardFull = () => {
+    if (!board.includes("")) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   const handleClick = (n) => {
     if (board[n] === "") {
       if (mode) {
         let updatedBoard = board.map((value, index) => {
           if (n === index && value === "") {
             return "O";
-          }
-          else {
+          } else {
             return value;
           }
         });
         updateBoard(updatedBoard);
-        if(!isWinner()){
+        if (!isWinner()) {
           updatedBoard = compMove(updatedBoard);
+          setTimeout(updateBoard(updatedBoard), 3000);
+          console.log();
         }
-        updateBoard(updatedBoard);
       } else {
         updateBoard(
           board.map((value, index) => {
@@ -120,7 +128,7 @@ export function Board() {
         <button className="toggle-mode" onClick={() => changeMode()}>
           Change Mode
         </button>
-        {isWinner() ? (
+        {isWinner() || boardFull() ? (
           <button
             className="new-game"
             onClick={() => updateBoard(["", "", "", "", "", "", "", "", ""])}
@@ -144,6 +152,11 @@ export function Board() {
           <div>
             <span>{changePlayer(player)}</span> wins!
           </div>
+        ) : (
+          <></>
+        )}
+        {(!isWinner() && boardFull()) ? (
+          <div>It's a tie</div>
         ) : (
           <></>
         )}

@@ -16,17 +16,16 @@ function compMove(board) {
 
   //line is an array of 3 cell indices
   const placeMarker = (line) => {
-    for (let i = 0; i < 3; i++) {
-      if (board[line[i]] === "" && !moveDone) {
-        updatedBoard = board.map((value, index) => {
-          if (line[i] === index && value === "") {
-            return "X";
-          }
-          return value;
-        });
+    updatedBoard = board.map((value, index) => {
+      if (moveDone) {
+        return value;
+      } else if (line.includes(index) && value === "") {
         moveDone = true;
+        return "X";
+      } else {
+        return value;
       }
-    }
+    });
   };
 
   const lineVal = (line) => {
@@ -34,10 +33,10 @@ function compMove(board) {
     let counter = 0;
 
     for (let i = 0; i < 3; i++) {
-      if (board[line[i]] === "X") {
+      if (board[line[i]] === "O") {
         val--;
         counter++;
-      } else if (board[line[i]] === "O") {
+      } else if (board[line[i]] === "X") {
         val++;
         counter++;
       }
@@ -56,9 +55,8 @@ function compMove(board) {
         default:
           return 0;
       }
-    }
-    else {
-      return 1;
+    } else {
+      return 0;
     }
   };
 
@@ -69,8 +67,7 @@ function compMove(board) {
     });
   }
 
-  vals.sort();
-  console.log(vals)
+  vals = iSort(vals);
 
   for (let eachLine of vals) {
     if (!moveDone) {
@@ -81,6 +78,17 @@ function compMove(board) {
     }
   }
   return updatedBoard;
+}
+
+function iSort(vals) {
+  for (let i = 1; i < vals.length; i++) {
+    for (let j = i - 1; j > -1; j--) {
+      if (vals[j + 1].value > vals[j].value) {
+        [vals[j + 1], vals[j]] = [vals[j], vals[j + 1]];
+      }
+    }
+  }
+  return vals;
 }
 
 export default compMove;
