@@ -63,7 +63,6 @@
 
 .display-box {
   display: grid;
-  outline: 3px solid black;
   width: 30rem;
   height: 6.5rem;
   justify-content: center;

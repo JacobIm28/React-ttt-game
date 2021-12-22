@@ -19,15 +19,6 @@ export function Board() {
     }
   };
 
-  const changePlayer = (x) => {
-    if (x === "X") {
-      return "O";
-    }
-    if (x === "O") {
-      return "X";
-    }
-  };
-
   const isWinner = () => {
     let winCombos = [
       [0, 1, 2],
@@ -54,15 +45,19 @@ export function Board() {
   const handleClick = (n) => {
     if (board[n] === "") {
       if (mode) {
-        updateBoard(
-          board.map((value, index) => {
-            if (n === index && value === "") {
-              return updateCell(board[n]);
-            }
+        let updatedBoard = board.map((value, index) => {
+          if (n === index && value === "") {
+            return "O";
+          }
+          else {
             return value;
-          })
-        );
-        updateBoard(compMove(board,player,updateCell));
+          }
+        });
+        updateBoard(updatedBoard);
+        if(!isWinner()){
+          updatedBoard = compMove(updatedBoard);
+        }
+        updateBoard(updatedBoard);
       } else {
         updateBoard(
           board.map((value, index) => {
@@ -90,10 +85,10 @@ export function Board() {
   const changeMode = () => {
     toggleMode(!mode);
     updateBoard(["", "", "", "", "", "", "", "", ""]);
-  }
+  };
 
   return (
-    <div>
+    <div className="everything">
       <div className="container">
         {isWinner() ? (
           <div className="board">
@@ -156,3 +151,12 @@ export function Board() {
     </div>
   );
 }
+
+export const changePlayer = (x) => {
+  if (x === "X") {
+    return "O";
+  }
+  if (x === "O") {
+    return "X";
+  }
+};

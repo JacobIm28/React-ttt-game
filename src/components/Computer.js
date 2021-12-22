@@ -1,8 +1,7 @@
-function compMove(board, userToken, updateCell) {
+function compMove(board) {
   let vals = [];
   let moveDone = false;
-  const compToken = userToken === "X" ? "O" : "X";
-  let updatedBoard = [];
+  let updatedBoard = ["", "", "", "", "", "", "", "", ""];
 
   let combos = [
     [0, 1, 2], //1
@@ -21,7 +20,7 @@ function compMove(board, userToken, updateCell) {
       if (board[line[i]] === "" && !moveDone) {
         updatedBoard = board.map((value, index) => {
           if (line[i] === index && value === "") {
-            return updateCell(board[line[i]]);
+            return "X";
           }
           return value;
         });
@@ -35,14 +34,15 @@ function compMove(board, userToken, updateCell) {
     let counter = 0;
 
     for (let i = 0; i < 3; i++) {
-      if (board[line[i]] === userToken) {
+      if (board[line[i]] === "X") {
         val--;
         counter++;
-      } else if (board[line[i]] === compToken) {
+      } else if (board[line[i]] === "O") {
         val++;
         counter++;
       }
     }
+
     if (counter === 3) {
       return 0;
     } else if (counter === 2) {
@@ -54,10 +54,12 @@ function compMove(board, userToken, updateCell) {
         case -2:
           return 2;
         default:
-          return 1;
+          return 0;
       }
     }
-    return 1;
+    else {
+      return 1;
+    }
   };
 
   for (let i = 0; i < 8; i++) {
@@ -68,12 +70,13 @@ function compMove(board, userToken, updateCell) {
   }
 
   vals.sort();
+  console.log(vals)
 
   for (let eachLine of vals) {
     if (!moveDone) {
       placeMarker(eachLine.line);
     }
-    if (moveDone){
+    if (moveDone) {
       return updatedBoard;
     }
   }
