@@ -7,7 +7,7 @@ import compMove from "./Computer";
 export function Board() {
   const [board, updateBoard] = useState(["", "", "", "", "", "", "", "", ""]);
   const [player, togglePlayer] = useState("X"); //Use state doesn't work
-  const [mode, toggleMode] = useState(false); //true means single player
+  const [mode, toggleMode] = useState(false); //true means multiplayer
 
   const updateCell = (s) => {
     if (s === "X") {
@@ -52,7 +52,7 @@ export function Board() {
 
   const handleClick = (n) => {
     if (board[n] === "") {
-      if (mode) {
+      if (!mode) {
         let updatedBoard = board.map((value, index) => {
           if (n === index && value === "") {
             return "O";
@@ -140,13 +140,13 @@ export function Board() {
         )}
       </div>
       <div className="display-box">
-        <div>Currently in {mode ? "single player" : "mutiplayer"} mode</div>
-        {mode ? (
-          <div></div>
-        ) : (
+        <div>Currently in {mode ? "mutiplayer" : "single player"} mode</div>
+        {(mode && !isWinner() && !boardFull())? (
           <div>
-            <span>{player}</span> 's turn
-          </div>
+          <span>{player}</span> 's turn
+        </div>
+        ) : (
+          <></>
         )}
         {isWinner() ? (
           <div>
