@@ -1,3 +1,7 @@
+# Tic Tac Toe game where you can play with friends in multiplayer mode, or play single player against a bot that uses the Minimax algorithm!
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
