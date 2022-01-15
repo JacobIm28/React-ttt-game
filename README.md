@@ -1,4 +1,5 @@
-# Tic Tac Toe game where you can play with friends in multiplayer mode, or play single player against a bot that uses the Minimax algorithm!
+# Tic Tac Toe game 
+Play with friends in multiplayer mode, or play single player against a bot that uses the Minimax algorithm!
 
 
 
